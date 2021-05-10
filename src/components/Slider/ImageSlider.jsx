@@ -16,7 +16,7 @@ const ImageSlider = () => {
     return (
             <Carousel {...settings}>
                 <Wrap>
-                    <a href="">
+                    <a href="/">
                         {/* <h1>20% OFF</h1>
                         <h3>On all new</h3>
                         <h1 className="courses">Courses</h1> */}
@@ -24,17 +24,17 @@ const ImageSlider = () => {
                     </a>
                 </Wrap>
                 <Wrap>
-                    <a href="">
+                    <a href="/">
                         <img src="/images/card-4.jpg" alt=''/>
                     </a>
                 </Wrap>
                 <Wrap>
-                    <a href="">
+                    <a href="/">
                         <img src="/images/card-3.jpg" alt=''/>
                     </a>
                 </Wrap>
                 <Wrap>
-                    <a href="">
+                    <a href="/">
                         <img src="/images/card-4.jpg" alt=''/>
                     </a>
                 </Wrap>
@@ -43,7 +43,7 @@ const ImageSlider = () => {
 }
 const Carousel = styled(Slider)`
     /*  no prob */
-    margin-top: 8px;
+    margin-top: 5px;
     & > button{
         width: 5vw;
         height: 100%;

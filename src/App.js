@@ -1,11 +1,17 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {useEffect} from 'react';
 import Home from '../src/components/Home/Home';
 import Courses from '../src/components/Courses/Courses';
 import Test from '../src/components/Test/Test';
 import CourseDetails from './components/CourseDetails/CourseDetails';
 import NavBar from '../src/components/NavBar/NavBar';
-function App() {
+import {checkAuthStatus} from './Redux/auth/authActions'
+import { connect } from 'react-redux';
+function App({checkAuthStatus}) {
+  useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus])
   return (
     <div className="App">
     <Router>
@@ -32,5 +38,8 @@ function App() {
     </div>
   );
 }
+var actions = ({
+  checkAuthStatus,
+})
 
-export default App;
+export default connect(null, actions)(App);

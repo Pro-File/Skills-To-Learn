@@ -9,13 +9,15 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import {openModal} from '../../Redux/modals/modalActions';
+import {signout} from '../../Redux/auth/authActions';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -81,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+const NavBar = ({openModal, auth, signout}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -101,6 +103,11 @@ export default function NavBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const logOut = ()=> {
+    signout();
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  }
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -118,11 +125,12 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={logOut}>Logout</MenuItem>
     </Menu>
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
+  // Mobile Menu
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -149,7 +157,22 @@ export default function NavBar() {
         </IconButton>
         <p>Favourites</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+
+      <MenuItem>
+        <IconButton aria-label="show 7 new notifications" color="inherit">
+        <AccountCircle />
+        </IconButton>
+        <p>Account</p>
+      </MenuItem>
+
+      <MenuItem>
+        <IconButton aria-label="show 7 new notifications" color="inherit">
+        <PowerSettingsNewIcon />
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
+      
+      {/* <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -159,9 +182,11 @@ export default function NavBar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
     </Menu>
   );
+// Mobile Menu
+
 
   return (
     <div className={classes.grow}>
@@ -170,7 +195,7 @@ export default function NavBar() {
       
               <Logo/>
           <Typography className={classes.title} variant="h6" noWrap>
-            <h3>Skills-To-Learn</h3>
+            Skills-To-Learn
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -186,39 +211,56 @@ export default function NavBar() {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingCartOutlinedIcon/>
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 7 new notifications" color="inherit">
-              <Badge badgeContent={7} color="secondary">
-                <FavoriteBorderOutlinedIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+            {/* Start CR */}
+            {
+               auth && auth.Name?
+              <>
+              <div className={classes.sectionDesktop}>
+
+
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={4} color="secondary">
+                  <ShoppingCartOutlinedIcon/>
+                </Badge>
+              </IconButton>
+  
+              <IconButton aria-label="show 7 new notifications" color="inherit">
+                <Badge badgeContent={7} color="secondary">
+                  <FavoriteBorderOutlinedIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+            </>
+            :
+               <>
+                <IconButton color="inherit" onClick= {()=> openModal({modalType : "OpenSignIn"})}>
+                <PowerSettingsNewIcon />
+                </IconButton>
+
+                </>
+            }
+          
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -230,12 +272,23 @@ const Logo = styled.div`
   margin: 10px 20px;
   width: 60px;
   height: 60px;
-  background: url("./../../images/Logo.png");
+  /* background: url("./../../images/Logo.png");
   background-size: 140% 140%, contain;
   background-repeat: no-repeat;
-  background-position-x: center;
-  /* background: red; */
+  background-position-x: center; */
+  background: black;
   border-radius: 50%;
   z-index: 200;
 
 `;
+
+
+var mapState = (state) => ({
+  auth: state.auth,
+})
+var actions = ({
+  openModal,
+  signout,
+})
+
+export default connect(mapState, actions)(NavBar);
