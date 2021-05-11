@@ -35,7 +35,7 @@ const SignUp = ({googleSignin, closeModal, openModal}) => {
         const SignUpStatus = await signup(user)
         closeModal()
         if(SignUpStatus === true) {
-          setOpen(true)
+          // setOpen(true)
         }
         // console.log(user)
     }
@@ -44,10 +44,10 @@ const SignUp = ({googleSignin, closeModal, openModal}) => {
         <Grid container spacing={2}>
             <SnackBar open={open} setOpen = {setOpen}/>
             <Grid item xs={12} className = {Classes.head}>
-            <Typography align="center" variant="h3">  WELCOME
+            <Typography align="center" variant="h3">  WELCOME TO
             </Typography>
             <Typography variant = "h5" align="center"  gutterBottom>
-                to S-To-L
+                Skills-To-Learn
             </Typography>
             </Grid>
             <Divider />
@@ -71,26 +71,35 @@ const SignUp = ({googleSignin, closeModal, openModal}) => {
             onChange={(e) => setImg(e.target.value)} fullWidth/>
             </Grid>
 
-            <Button fullWidth className={Classes.button} variant="outlined" type="submit" 
+            <Button fullWidth className={Classes.button} variant="contained" type="submit" 
              onClick={(e) => HandleSubmit(e)} color="primary">
                 Sign Up
             </Button>
             
             <Grid item xs = {12} className={Classes.social}>
-            <Typography align = "center" variant = "subtitle2">or continue with</Typography>
-        <Grid item xs={3} spacing="3">
-          <Button variant="outlined">
+            <Typography align = "center" variant = "subtitle2" className={Classes.continue}>or continue with</Typography>
+        <Grid container spacing={0}>
+        <Grid item xs={3}></Grid>
+          <Grid item xs={2} className={Classes.radioGroup}>
+          <Button variant="contained" >
             {/* <VisuallyHidden>Login with Facebook</VisuallyHidden> */}
             <FaFacebook />
           </Button>
-          <Button variant="outlined" onClick={HandleGoogle}>
+          </Grid>
+          <Grid item xs={2} className={Classes.radioGroup}>
+          <Button variant="contained" onClick={HandleGoogle}>
             {/* <VisuallyHidden>Login with Google</VisuallyHidden> */}
             <FaGoogle />
           </Button>
-          <Button variant="outlined">
+          </Grid>
+          <Grid item xs={2} className={Classes.radioGroup}>
+          <Button variant="contained">
             {/* <VisuallyHidden>Login with Github</VisuallyHidden> */}
             <FaGithub />
           </Button>
+          </Grid>
+          <Grid item xs={3}></Grid>
+
         </Grid>
             </Grid>
 

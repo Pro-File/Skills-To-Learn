@@ -19,7 +19,7 @@ const SnackBar = ({ open, setOpen }) => {
     <div className={classes.root}>
       <Snackbar 
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }} 
-      open={open} autoHideDuration={6000} onClose={handleClose}>
+      open={open} autoHideDuration={2000} onClose={handleClose}>
         <MuiAlert onClose={handleClose} severity="success" elevation={6} variant="filled">Login Successfull !</MuiAlert>
       </Snackbar>
     </div>

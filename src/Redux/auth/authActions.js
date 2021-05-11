@@ -120,10 +120,12 @@ export var checkAuthStatus = () => async (dispatch) => {
           uid,
         };
         dispatch(setUser(userDataForState));
+        return true;
       } else {
         // No user is signed in.
         //set auth state to null
         dispatch(removeUser());
+        return false;
       }
     });
   } catch (error) {

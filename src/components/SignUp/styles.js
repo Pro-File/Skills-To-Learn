@@ -4,7 +4,6 @@ export default makeStyles(() => ({
   radioGroup: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '-10px',
   },
   head : {
     marginTop: "50px",
@@ -21,7 +20,10 @@ export default makeStyles(() => ({
     margin: "0px 20px",
   },
   social: {
-    marginBottom: "0px",
+    padding: '0px 0px',
+  },
+  continue:{
+    padding: '10px 0px',
   },
   button: {
     marginTop: '40px',

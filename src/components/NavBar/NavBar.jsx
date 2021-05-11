@@ -18,6 +18,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 import {openModal} from '../../Redux/modals/modalActions';
 import {signout} from '../../Redux/auth/authActions';
+import SnackBar from '../SnackBar/SnackBar';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -84,7 +85,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar = ({openModal, auth, signout}) => {
+  const [isFirst, setisFirst] = React.useState(true);
+  React.useEffect(() => {
+    if (isFirst) {
+      setisFirst(false);
+      return;
+    }
+    else{
+    if(auth!= null){
+      console.log('hello from nav');
+      setOpen(true);
+    }
+  }
+  }, [auth])
   const classes = useStyles();
+  const [ open ,setOpen] = React.useState(false);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -216,7 +232,8 @@ const NavBar = ({openModal, auth, signout}) => {
                auth && auth.Name?
               <>
               <div className={classes.sectionDesktop}>
-
+                
+              <SnackBar open={open} setOpen = {setOpen}/>
 
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">

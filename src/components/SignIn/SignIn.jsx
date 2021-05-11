@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState, React} from 'react'
 import {TextField, Grid, Button, Typography, Divider, Link } from '@material-ui/core';
 import UseStyles from './styles';
 import { connect } from 'react-redux';
@@ -15,8 +15,8 @@ const SignIn = ({googleSignin, closeModal, openModal, signin}) => {
     var HandleGoogle = (e) => {
       e.preventDefault();
       closeModal();
-      setOpen(true);
       googleSignin();
+      setOpen(true);
     }
     
     var HandleSubmit = async(e) =>{
@@ -28,10 +28,10 @@ const SignIn = ({googleSignin, closeModal, openModal, signin}) => {
         }
         
         const SignInStatus = await signin(user)
-        console.log(SignInStatus)
-        closeModal()
         if(SignInStatus === true) {
-          setOpen(true)
+          // setOpen(true)
+          // console.log(SignInStatus)
+          closeModal()
         }
         // console.log(user)
     }
@@ -40,10 +40,10 @@ const SignIn = ({googleSignin, closeModal, openModal, signin}) => {
         <Grid container spacing={2}>
             <SnackBar open={open} setOpen = {setOpen}/>
             <Grid item xs={12} className = {Classes.head}>
-            <Typography align="center" variant="h3">  WELCOME
+            <Typography align="center" variant="h3">  WELCOME TO
             </Typography>
             <Typography variant = "h5" align="center"  gutterBottom>
-                to S-TO-L
+               Skills-To-Learn
             </Typography>
             </Grid>
             <Divider />
@@ -57,32 +57,34 @@ const SignIn = ({googleSignin, closeModal, openModal, signin}) => {
             onChange={(e) => setPass(e.target.value)} fullWidth/>
             </Grid>
 
-            <Button fullWidth className={Classes.button} variant="outlined" type="submit" 
+            <Button fullWidth className={Classes.button} variant="contained" type="submit" 
              onClick={(e) => HandleSubmit(e)} color="primary">
                 Sign In
             </Button>
             
             <Grid item xs = {12} className={Classes.social}>
-            <Typography align = "center" variant = "subtitle2">or continue with</Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-          <Button variant="outlined">
+            <Typography align = "center" variant = "subtitle2" className={Classes.continue}>or continue with</Typography>
+        <Grid container spacing={0}>
+        <Grid item xs={3}></Grid>
+          <Grid item xs={2} className={Classes.radioGroup}>
+          <Button variant="contained">
             {/* <VisuallyHidden>Login with Facebook</VisuallyHidden> */}
             <FaFacebook />
           </Button>
           </Grid>
-          <Grid item xs={4}>
-          <Button variant="outlined" onClick={HandleGoogle}>
+          <Grid item xs={2} className={Classes.radioGroup}>
+          <Button variant="contained" onClick={(e)=> {HandleGoogle(e)}}>
             {/* <VisuallyHidden>Login with Google</VisuallyHidden> */}
             <FaGoogle />
           </Button>
           </Grid>
-          <Grid item xs={4}>
-          <Button variant="outlined">
+          <Grid item xs={2} className={Classes.radioGroup}>
+          <Button variant="contained">
             {/* <VisuallyHidden>Login with Github</VisuallyHidden> */}
             <FaGithub />
           </Button>
           </Grid>
+          <Grid item xs={3}></Grid>
 
         </Grid>
             </Grid>

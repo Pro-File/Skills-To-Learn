@@ -43,7 +43,6 @@ const ImageSlider = () => {
 }
 const Carousel = styled(Slider)`
     /*  no prob */
-    margin-top: 5px;
     & > button{
         width: 5vw;
         height: 100%;
@@ -82,7 +81,7 @@ const Wrap = styled.div`
         box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
         position: relative;
         display: block;
-        margin: 5px;
+        margin: 0px 4px;
         h1{
             position: absolute;
             top: 10%;
@@ -122,7 +121,7 @@ const Wrap = styled.div`
     }
 @media (max-width: 768px){
 a{
-    height: 180px;
+    height: 200px;
 }
 a img{
     object-fit: cover;
